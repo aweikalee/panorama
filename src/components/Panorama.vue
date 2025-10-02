@@ -6,7 +6,7 @@
 import { ref, onMounted, onBeforeUnmount, watch, computed } from "vue"
 import "pannellum"
 import "pannellum/build/pannellum.css"
-import { useViewport } from "@/utils/useViewport"
+import { Orientation, useViewport } from "@/utils/useViewport"
 
 export type PannellumScene = Parameters<typeof pannellum.viewer>[1]
 export type PannellumOptions = {
@@ -31,7 +31,7 @@ const hfov = computed(() => {
   const portrait = 60
   const landscape = 90
 
-  return viewport.width > viewport.height ? landscape : portrait
+  return viewport.orientation === Orientation.Landscape ? landscape : portrait
 })
 
 const options = computed(() => {

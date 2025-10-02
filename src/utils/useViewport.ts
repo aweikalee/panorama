@@ -1,22 +1,28 @@
-import { onBeforeUnmount, onMounted, reactive } from "vue"
+import { reactive, readonly } from "vue"
+import { throttle } from "./throttle"
+
+export enum Orientation {
+  Portrait = "portrait",
+  Landscape = "landscape",
+}
+
+const state = reactive({
+  width: 100,
+  height: 100,
+  orientation: Orientation.Portrait,
+})
+
+function update() {
+  state.width = window.innerWidth
+  state.height = window.innerHeight
+
+  state.orientation =
+    state.height >= state.width ? Orientation.Portrait : Orientation.Landscape
+}
+
+update()
+window.addEventListener("resize", throttle(update))
 
 export function useViewport() {
-  const rect = reactive({
-    width: 100,
-    height: 100,
-  })
-
-  function update() {
-    rect.width = window.innerWidth
-    rect.height = window.innerHeight
-  }
-
-  onMounted(() => {
-    update()
-    window.addEventListener("resize", update)
-  })
-  onBeforeUnmount(() => {
-    window.removeEventListener("resize", update)
-  })
-  return rect
+  return readonly(state)
 }
