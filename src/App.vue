@@ -13,25 +13,11 @@ const viewport = useViewport()
 
 const activeOption = ref(sceneOptions[0])
 
-// 根据视口宽高比计算合适的 hfov
-const hfov = computed(() => {
-  const portrait = 60
-  const landscape = 75
-
-  return viewport.width > viewport.height ? landscape : portrait
-})
-
 const options = computed<PannellumOptions>(() => ({
   default: {
     firstScene: activeOption.value?.sceneId!,
-    autoLoad: true,
-    autoRotate: 2,
-    compass: true,
     northOffset: -90 - 37,
-    hfov: hfov.value, // 根据视口宽高比动态计算
-    touchPanSpeedCoeffFactor: 1.2, // 触摸时平移速度 默认1
-    orientationOnByDefault: false,
-    yaw: -90,
+    yaw: 90,
   },
   scenes: sceneOptions.reduce((acc, scene) => {
     acc[scene.sceneId] = {

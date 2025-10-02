@@ -3,9 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, watch } from "vue"
+import { ref, onMounted, onBeforeUnmount, watch, computed } from "vue"
 import "pannellum"
 import "pannellum/build/pannellum.css"
+import { useViewport } from "@/utils/useViewport"
 
 export type PannellumScene = Parameters<typeof pannellum.viewer>[1]
 export type PannellumOptions = {
@@ -23,16 +24,32 @@ const props = defineProps<{
 const panoramaContainer = ref<HTMLElement>()
 let viewer: any = null
 
+const viewport = useViewport()
+
+// 根据视口宽高比计算合适的初始 hfov
+const hfov = computed(() => {
+  const portrait = 60
+  const landscape = 90
+
+  return viewport.width > viewport.height ? landscape : portrait
+})
+
+const options = computed(() => {
+  return {
+    autoLoad: true,
+    autoRotate: -2,
+    compass: true,
+    showControls: false,
+    touchPanSpeedCoeffFactor: 1.5, // 触摸时平移速度 默认1
+    orientationOnByDefault: false,
+    hfov: hfov.value,
+    ...props.options,
+  }
+})
+
 const initPanorama = () => {
   if (!panoramaContainer.value) return
-
-  const config: any = {
-    // type: "equirectangular",
-    ...(props.options ?? {}),
-  }
-
-  viewer?.destroy()
-  viewer = pannellum.viewer(panoramaContainer.value, config)
+  viewer = pannellum.viewer(panoramaContainer.value, options.value)
 }
 
 const destroyViewer = () => {
@@ -54,13 +71,10 @@ onBeforeUnmount(() => {
   destroyViewer()
 })
 
-watch(
-  () => props.options,
-  () => {
-    destroyViewer()
-    initPanorama()
-  }
-)
+watch(options, () => {
+  destroyViewer()
+  initPanorama()
+})
 
 export type PanoramaRef = {
   viewer: any
