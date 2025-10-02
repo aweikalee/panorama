@@ -1,39 +1,75 @@
 <script setup lang="ts">
 import Panorama, {
   type PannellumOptions,
+  type PannellumScene,
   type PanoramaRef,
 } from "./components/Panorama.vue"
-import { computed, onBeforeUnmount, onMounted, ref } from "vue"
+import { computed, ref } from "vue"
 import { sceneOptions } from "./config"
+import { useViewport } from "./utils/useViewport"
 
 const panoramaRef = ref<PanoramaRef>()
+const viewport = useViewport()
 
 const activeOption = ref(sceneOptions[0])
 
-const options = computed<PannellumOptions>(() => ({
-  autoLoad: true,
-  autoRotate: 2,
-  northOffset: -90 - 37,
-  compass: true,
-  hfov: 60, // 摄像机视角
-  yaw: 90, // 初始旋转角度 正值向右 负值向左
-  touchPanSpeedCoeffFactor: 1.2, // 触摸时平移速度 默认1
-  orientationOnByDefault: false,
+// 根据视口宽高比计算合适的 hfov
+const hfov = computed(() => {
+  const portrait = 60
+  const landscape = 75
 
-  ...activeOption.value,
+  return viewport.width > viewport.height ? landscape : portrait
+})
+
+const options = computed<PannellumOptions>(() => ({
+  default: {
+    firstScene: activeOption.value?.sceneId!,
+    autoLoad: true,
+    autoRotate: 2,
+    compass: true,
+    northOffset: -90 - 37,
+    hfov: hfov.value, // 根据视口宽高比动态计算
+    touchPanSpeedCoeffFactor: 1.2, // 触摸时平移速度 默认1
+    orientationOnByDefault: false,
+  },
+  scenes: sceneOptions.reduce((acc, scene) => {
+    acc[scene.sceneId] = {
+      ...scene,
+      hotSpots: sceneOptions
+        .filter((o) => o.sceneId !== scene.sceneId)
+        .map((o) => {
+          // 计算相对位置
+          const deltaX = o.$x - scene.$x
+          const deltaY = o.$y - scene.$y
+
+          // 计算距离
+          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
+
+          const yaw = Math.atan2(deltaY, -deltaX) * (180 / Math.PI)
+          const pitch = -Math.atan(1200 / distance) * (180 / Math.PI)
+
+          return {
+            type: "scene",
+            text: o.sceneId,
+            sceneId: o.sceneId,
+            yaw,
+            pitch,
+            cssClass: "custom-hotspot",
+            createTooltipFunc: hotspot,
+            createTooltipArgs: o.sceneId,
+          }
+        }),
+    }
+    return acc
+  }, {} as Record<string, PannellumScene>),
 }))
 
-const containerHeight = ref(0)
-function onResize() {
-  containerHeight.value = window.innerHeight
+function hotspot(hotSpotDiv: HTMLElement, args: string) {
+  hotSpotDiv.classList.add("custom-tooltip")
+  var span = document.createElement("span")
+  span.innerHTML = args
+  hotSpotDiv.appendChild(span)
 }
-onMounted(() => {
-  onResize()
-  window.addEventListener("resize", onResize)
-})
-onBeforeUnmount(() => {
-  window.removeEventListener("resize", onResize)
-})
 
 const isOrientationApplied = ref(false)
 async function startOrientation() {
@@ -64,23 +100,23 @@ async function startOrientation() {
 <template>
   <div
     class="container"
-    :style="{ height: containerHeight + 'px' }"
+    :style="{ height: viewport.height + 'px' }"
     @click="startOrientation"
   >
     <Panorama ref="panoramaRef" class="viewer" :options="options" />
 
-    <div class="controls">
+    <div class="controls" v-if="false">
       <div class="scene">
         <button
           class="scene-button"
           :class="{
-            active: activeOption?.$title === scene.$title,
+            active: activeOption?.sceneId === scene.sceneId,
           }"
           v-for="scene in sceneOptions"
-          :key="scene.$title"
+          :key="scene.sceneId"
           @click="activeOption = scene"
         >
-          {{ scene.$title }}
+          {{ scene.sceneId }}
         </button>
       </div>
     </div>

@@ -7,7 +7,14 @@ import { ref, onMounted, onBeforeUnmount, watch } from "vue"
 import "pannellum"
 import "pannellum/build/pannellum.css"
 
-export type PannellumOptions = Parameters<typeof pannellum.viewer>[1]
+export type PannellumScene = Parameters<typeof pannellum.viewer>[1]
+export type PannellumOptions = {
+  default: {
+    firstScene: string
+  } & PannellumScene
+
+  scenes: Record<string, PannellumScene>
+}
 
 const props = defineProps<{
   options: PannellumOptions
@@ -20,7 +27,7 @@ const initPanorama = () => {
   if (!panoramaContainer.value) return
 
   const config: any = {
-    type: "equirectangular",
+    // type: "equirectangular",
     ...(props.options ?? {}),
   }
 
