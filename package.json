@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "pannellum": "^2.5.6",
-    "vue": "^3.5.22"
+    "vue": "^3.5.22",
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
     "@types/pannellum": "^2.5.0",
