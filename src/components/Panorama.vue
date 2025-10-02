@@ -31,6 +31,7 @@ const initPanorama = () => {
     ...(props.options ?? {}),
   }
 
+  viewer?.destroy()
   viewer = pannellum.viewer(panoramaContainer.value, config)
 }
 

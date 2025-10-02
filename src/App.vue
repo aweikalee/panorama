@@ -31,6 +31,7 @@ const options = computed<PannellumOptions>(() => ({
     hfov: hfov.value, // 根据视口宽高比动态计算
     touchPanSpeedCoeffFactor: 1.2, // 触摸时平移速度 默认1
     orientationOnByDefault: false,
+    yaw: -90,
   },
   scenes: sceneOptions.reduce((acc, scene) => {
     acc[scene.sceneId] = {
@@ -54,6 +55,9 @@ const options = computed<PannellumOptions>(() => ({
             sceneId: o.sceneId,
             yaw,
             pitch,
+            targetPitch: "same" as any,
+            targetHfov: "same" as any,
+            targetYaw: "same" as any,
             cssClass: "custom-hotspot",
             createTooltipFunc: hotspot,
             createTooltipArgs: o.sceneId,
