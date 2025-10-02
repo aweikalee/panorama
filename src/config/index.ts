@@ -1,11 +1,60 @@
 import type { PannellumOptions } from "@/components/Panorama.vue"
 
+function getAssets(src: string) {
+  return `https://awwwk.oss-cn-hangzhou.aliyuncs.com/panorama/${src}`
+}
+
 export const sceneOptions: (PannellumOptions & {
   $title: string
 })[] = [
   {
-    $title: "客餐厅",
-    panorama:
-      "https://awwwk.oss-cn-hangzhou.aliyuncs.com/panorama/%E5%85%A8%E6%99%AF%E5%9B%BE_%E4%B8%BB%E6%96%B9%E6%A1%88_2025-09-28-18-50-11.jpg",
+    $title: "客厅",
+    panorama: getAssets("主方案_2025-10-02T06_51_22.0568531Z.jpg"),
+    yaw: 90,
+  },
+  {
+    $title: "餐厅",
+    panorama: getAssets("主方案_2025-10-02T06_42_20.7966195Z.jpg"),
+    yaw: 180,
+  },
+  {
+    $title: "厨房",
+    panorama: getAssets("主方案_2025-10-02T06_44_12.5104749Z.jpg"),
+    yaw: -90,
+  },
+  {
+    $title: "干区",
+    panorama: getAssets("主方案_2025-10-02T06_49_27.3059397Z.jpg"),
+    yaw: 90,
+  },
+  {
+    $title: "主卫",
+    panorama: getAssets("主方案_2025-10-02T06_56_21.9294673Z.jpg"),
+    yaw: 90,
+  },
+  {
+    $title: "次卫",
+    panorama: getAssets("主方案_2025-10-02T06_45_58.4045086Z.jpg"),
+    yaw: 90,
+  },
+  {
+    $title: "主卧",
+    panorama: getAssets("主方案_2025-10-02T06_57_58.7295883Z.jpg"),
+    yaw: -90,
+  },
+  {
+    $title: "次卧",
+    panorama: getAssets("主方案_2025-10-02T06_47_35.8547777Z.jpg"),
+    yaw: -90,
+  },
+  {
+    $title: "书房",
+    panorama: getAssets("主方案_2025-10-02T06_54_42.2950157Z.jpg"),
+    yaw: 90,
+  },
+  {
+    $title: "设备平台",
+    panorama: getAssets("主方案_2025-10-02T06_53_01.1423488Z.jpg"),
+    yaw: 0,
   },
 ]
