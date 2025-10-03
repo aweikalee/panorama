@@ -2,7 +2,6 @@
 import Navbar from "@/components/Navbar.vue"
 import Fixed from "@/components/Fixed.vue"
 import { getAssets } from "@/utils/oss"
-import { useEasyLightbox } from "vue-easy-lightbox"
 
 const list: { name: string; url: string; width?: number; height?: number }[] = [
   {
@@ -38,45 +37,20 @@ const list: { name: string; url: string; width?: number; height?: number }[] = [
     url: getAssets("平面图/平面图_8_水电立面图3.png"),
   },
 ]
-
-const { imgsRef, indexRef, onHide, visibleRef } = useEasyLightbox()
 </script>
 
 <template>
   <div class="gallery">
-    <a
-      class="gallery__item"
-      v-for="item in list"
-      :key="item.name"
-      target="_blank"
-      @click="
-        () => {
-          visibleRef = true
-          indexRef = list.indexOf(item)
-          imgsRef = list.map((item) => item.url)
-        }
-      "
-    >
-      {{ item.name }}
-    </a>
+    <photo-provider v-for="item in list" :key="item.name">
+      <photo-consumer class="gallery__item" :src="item.url" :intro="item.name">
+        {{ item.name }}
+      </photo-consumer>
+    </photo-provider>
   </div>
 
   <Fixed position="bottom">
     <Navbar />
   </Fixed>
-
-  <vue-easy-lightbox
-    :visible="visibleRef"
-    :imgs="imgsRef"
-    :index="indexRef"
-    @hide="onHide"
-    :zoomScale="1"
-    style="background: rgba(0, 0, 0, 0.8)"
-  >
-    <template #prev-btn> </template>
-    <template #next-btn> </template>
-    <template #toolbar> </template
-  ></vue-easy-lightbox>
 </template>
 
 <style scoped lang="scss">
