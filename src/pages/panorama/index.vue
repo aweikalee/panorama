@@ -7,6 +7,7 @@ import Panorama, {
 import { computed, ref } from "vue"
 import { sceneOptions } from "@/config"
 import { useViewport } from "@/utils/useViewport"
+import Navbar from "@/components/Navbar.vue"
 
 const panoramaRef = ref<PanoramaRef>()
 const viewport = useViewport()
@@ -66,20 +67,8 @@ function hotspot(hotSpotDiv: HTMLElement, args: string) {
   <div class="container" :style="{ height: viewport.height + 'px' }">
     <Panorama ref="panoramaRef" class="viewer" :options="options" />
 
-    <div class="controls" v-if="false">
-      <div class="scene">
-        <button
-          class="scene-button"
-          :class="{
-            active: activeOption?.sceneId === scene.sceneId,
-          }"
-          v-for="scene in sceneOptions"
-          :key="scene.sceneId"
-          @click="activeOption = scene"
-        >
-          {{ scene.sceneId }}
-        </button>
-      </div>
+    <div class="footer">
+      <Navbar />
     </div>
   </div>
 </template>
@@ -100,35 +89,7 @@ function hotspot(hotSpotDiv: HTMLElement, args: string) {
   min-height: 0;
 }
 
-.controls {
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-
-  .scene {
-    white-space: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 20px;
-
-    .scene-button {
-      display: inline-block;
-      appearance: none;
-      height: 40px;
-      padding: 0 20px;
-      background-color: white;
-      opacity: 0.5;
-
-      & + .scene-button {
-        margin-left: 10px;
-      }
-
-      &:active {
-        opacity: 0.8;
-      }
-      &.active {
-        opacity: 1;
-      }
-    }
-  }
+.footer {
+  flex-shrink: 0;
 }
 </style>

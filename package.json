@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "normalize.css": "^8.0.1",
     "pannellum": "^2.5.6",
     "vue": "^3.5.22",
     "vue-router": "^4.5.1"

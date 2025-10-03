@@ -1,8 +1,5 @@
 import type { PannellumScene } from "@/components/Panorama.vue"
-
-function getAssets(src: string) {
-  return `https://awwwk.oss-cn-hangzhou.aliyuncs.com/panorama/${src}`
-}
+import { getAssets } from "@/utils/oss"
 
 export const sceneOptions: (PannellumScene & {
   sceneId: string
