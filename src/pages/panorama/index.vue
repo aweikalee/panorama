@@ -32,13 +32,15 @@ const options = computed<PannellumOptions>(() => ({
         .map((o) => {
           // 计算相对位置
           const deltaX = o.$x - scene.$x
-          const deltaY = o.$y - scene.$y
+          const deltaZ = -(o.$z - scene.$z) // su 的 z 轴与数学上的方向相反
 
           // 计算距离
-          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
+          const distance = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ)
 
-          const yaw = Math.atan2(deltaY, -deltaX) * (180 / Math.PI)
-          const pitch = -Math.atan(1200 / distance) * (180 / Math.PI)
+          const yaw = Math.atan2(deltaZ, -deltaX) * (180 / Math.PI)
+
+          // 视口高度1.77m， hotSpot 设置位置设在 1.77m -1.2m 的位置
+          const pitch = Math.atan(-1.2 / distance) * (180 / Math.PI)
 
           return {
             type: "scene",
