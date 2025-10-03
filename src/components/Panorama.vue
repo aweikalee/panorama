@@ -55,6 +55,9 @@ function stopOrientation() {
   isActiveOrientation.value = false
   viewer.stopOrientation()
 }
+watch(hfov, () => {
+  isActiveOrientation.value = false
+})
 
 /* 初始化 */
 const initPanorama = () => {
@@ -121,7 +124,7 @@ defineExpose<PanoramaRef>({
         :class="{
           active: isActiveOrientation,
         }"
-        @click="isActiveOrientation ? stopOrientation : startOrientation"
+        @click="isActiveOrientation ? stopOrientation() : startOrientation()"
       >
         陀螺仪
       </button>
