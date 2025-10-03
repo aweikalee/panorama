@@ -8,22 +8,26 @@ import { computed, ref } from "vue"
 import { sceneOptions } from "@/config"
 import { useViewport } from "@/utils/useViewport"
 import Navbar from "@/components/Navbar.vue"
+import { useRoute } from "vue-router"
+
+const route = useRoute()
+const group = computed(() =>
+  sceneOptions.find((g) => g.name === route.params.group)
+)
 
 const panoramaRef = ref<PanoramaRef>()
 const viewport = useViewport()
 
-const activeOption = ref(sceneOptions[0])
-
 const options = computed<PannellumOptions>(() => ({
   default: {
-    firstScene: activeOption.value?.sceneId!,
+    firstScene: group.value?.scenes?.[0]?.sceneId!,
     northOffset: -90 - 37,
     yaw: 90,
   },
-  scenes: sceneOptions.reduce((acc, scene) => {
+  scenes: group.value?.scenes.reduce((acc, scene) => {
     acc[scene.sceneId] = {
       ...scene,
-      hotSpots: sceneOptions
+      hotSpots: group.value?.scenes
         .filter((o) => o.sceneId !== scene.sceneId)
         .map((o) => {
           // 计算相对位置
@@ -52,7 +56,7 @@ const options = computed<PannellumOptions>(() => ({
         }),
     }
     return acc
-  }, {} as Record<string, PannellumScene>),
+  }, {} as Record<string, PannellumScene>)!,
 }))
 
 function hotspot(hotSpotDiv: HTMLElement, args: string) {

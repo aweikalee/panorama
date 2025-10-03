@@ -3,8 +3,8 @@ import Panorama from "@/pages/panorama/index.vue"
 import Gallery from "@/pages/gallery/index.vue"
 
 const routes = [
-  { path: "/", redirect: "/panorama" },
-  { path: "/panorama", component: Panorama },
+  { path: "/", redirect: "/panorama/main" },
+  { path: "/panorama/:group", component: Panorama },
   { path: "/gallery", component: Gallery },
 ]
 

@@ -1,11 +1,20 @@
 import type { PannellumScene } from "@/components/Panorama.vue"
 import { getAssets } from "@/utils/oss"
 
-export const sceneOptions: (PannellumScene & {
+type Scene = PannellumScene & {
   sceneId: string
   $x: number
   $y: number
-})[] = [
+}
+
+type PannellumGroup = {
+  name: string
+  title: string
+
+  scenes: Scene[]
+}
+
+const mainScene: Scene[] = [
   {
     sceneId: "餐厅",
     $x: 5000,
@@ -53,7 +62,6 @@ export const sceneOptions: (PannellumScene & {
     $x: 1430,
     $y: 2220,
     panorama: getAssets("主方案_2025-10-02T06_47_35.8547777Z.jpg"),
-    yaw: -90,
   },
   {
     sceneId: "书房",
@@ -69,36 +77,15 @@ export const sceneOptions: (PannellumScene & {
   },
 ]
 
-sceneOptions.forEach((item) => {
-  item.hotSpots = sceneOptions
-    .filter((o) => o.sceneId !== item.sceneId)
-    .map((o) => {
-      // 计算相对位置
-      const deltaX = o.$x - item.$x
-      const deltaY = o.$y - item.$y
-
-      // 计算距离
-      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY)
-
-      const yaw = Math.atan2(deltaY, -deltaX) * (180 / Math.PI)
-      const pitch = -Math.atan(1200 / distance) * (180 / Math.PI)
-
-      return {
-        type: "scene",
-        text: o.sceneId,
-        sceneId: o.sceneId,
-        yaw,
-        pitch,
-        cssClass: "custom-hotspot",
-        createTooltipFunc: hotspot,
-        createTooltipArgs: o.sceneId,
-      }
-    })
-})
-
-function hotspot(hotSpotDiv: HTMLElement, args: string) {
-  hotSpotDiv.classList.add("custom-tooltip")
-  var span = document.createElement("span")
-  span.innerHTML = args
-  hotSpotDiv.appendChild(span)
-}
+export const sceneOptions: PannellumGroup[] = [
+  {
+    name: "main",
+    title: "全景图",
+    scenes: mainScene,
+  },
+  {
+    name: "test",
+    title: "全景图2",
+    scenes: mainScene,
+  },
+]

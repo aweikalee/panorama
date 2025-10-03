@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { sceneOptions } from "@/config"
 import { useRoute } from "vue-router"
 
 const route = useRoute()
 
 const navs = [
-  {
-    name: "全景图",
-    path: "/panorama",
-  },
+  ...sceneOptions.map((o) => ({
+    name: o.title,
+    path: `/panorama/${o.name}`,
+  })),
+
   {
     name: "平面图",
     path: "/gallery",
