@@ -60,39 +60,10 @@ function hotspot(hotSpotDiv: HTMLElement, args: string) {
   span.innerHTML = args
   hotSpotDiv.appendChild(span)
 }
-
-const isOrientationApplied = ref(false)
-async function startOrientation() {
-  if (isOrientationApplied.value) return
-  isOrientationApplied.value = true
-
-  if (
-    typeof DeviceMotionEvent !== "undefined" &&
-    typeof (DeviceMotionEvent as any).requestPermission === "function"
-  ) {
-    // 需要用户交互触发（如点击按钮）
-    ;(DeviceMotionEvent as any)
-      .requestPermission()
-      .then((response: any) => {
-        if (response === "granted") {
-          panoramaRef.value?.startOrientation()
-        } else {
-          console.warn("用户拒绝了陀螺仪权限")
-        }
-      })
-      .catch(console.error)
-  } else {
-    panoramaRef.value?.startOrientation()
-  }
-}
 </script>
 
 <template>
-  <div
-    class="container"
-    :style="{ height: viewport.height + 'px' }"
-    @click="startOrientation"
-  >
+  <div class="container" :style="{ height: viewport.height + 'px' }">
     <Panorama ref="panoramaRef" class="viewer" :options="options" />
 
     <div class="controls" v-if="false">

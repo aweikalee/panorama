@@ -1,7 +1,3 @@
-<template>
-  <div ref="panoramaContainer"></div>
-</template>
-
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch, computed } from "vue"
 import "pannellum"
@@ -9,7 +5,7 @@ import "pannellum/build/pannellum.css"
 import { Orientation, useViewport } from "@/utils/useViewport"
 
 export type PannellumScene = Parameters<typeof pannellum.viewer>[1]
-export type PannellumOptions = {
+export type PannellumOptions = PannellumScene & {
   default: {
     firstScene: string
   } & PannellumScene
@@ -34,22 +30,43 @@ const hfov = computed(() => {
   return viewport.orientation === Orientation.Landscape ? landscape : portrait
 })
 
-const options = computed(() => {
+const options = computed<PannellumOptions>(() => {
   return {
     autoLoad: true,
     autoRotate: -2,
-    compass: true,
     showControls: false,
     touchPanSpeedCoeffFactor: 1.5, // 触摸时平移速度 默认1
     orientationOnByDefault: false,
     hfov: hfov.value,
+    sceneFadeDuration: 1000,
+    compass: true,
     ...props.options,
   }
 })
 
+/* 陀螺仪 */
+const isActiveOrientation = ref(false)
+const isMobile = "ontouchstart" in window
+async function startOrientation() {
+  viewer.startOrientation()
+  isActiveOrientation.value = true
+}
+function stopOrientation() {
+  isActiveOrientation.value = false
+  viewer.stopOrientation()
+}
+
+/* 初始化 */
 const initPanorama = () => {
   if (!panoramaContainer.value) return
   viewer = pannellum.viewer(panoramaContainer.value, options.value)
+
+  viewer.on("touchstart", () => {
+    stopOrientation()
+  })
+  viewer.on("mousedown", () => {
+    stopOrientation()
+  })
 }
 
 const destroyViewer = () => {
@@ -89,11 +106,56 @@ defineExpose<PanoramaRef>({
     destroyViewer()
     initPanorama()
   },
-  startOrientation: () => {
-    viewer.startOrientation()
-  },
-  stopOrientation: () => {
-    viewer.stopOrientation()
-  },
+  startOrientation,
+  stopOrientation,
 })
 </script>
+
+<template>
+  <div class="panorama">
+    <div ref="panoramaContainer"></div>
+
+    <div class="panorama__controls">
+      <button
+        v-if="isMobile"
+        :class="{
+          active: isActiveOrientation,
+        }"
+        @click="isActiveOrientation ? stopOrientation : startOrientation"
+      >
+        陀螺仪
+      </button>
+    </div>
+  </div>
+</template>
+
+<style scoped lang="scss">
+.panorama {
+  position: relative;
+
+  .panorama__controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    > button {
+      appearance: none;
+      background-color: rgba(black, 0.8);
+      color: white;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+      &:active {
+        opacity: 0.6;
+      }
+      &.active {
+        border-color: var(--color-primary);
+      }
+    }
+  }
+}
+</style>

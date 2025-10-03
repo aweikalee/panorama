@@ -11,6 +11,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --color-primary: rgb(160, 255, 255);
 }
 
 .custom-hotspot {
@@ -42,4 +44,10 @@
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   text-align: center;
   white-space: nowrap;
+}
+
+
+.pnlm-compass {
+  filter: invert(1);
+  border: 0 !important;
 }
