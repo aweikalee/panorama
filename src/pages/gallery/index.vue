@@ -7,11 +7,35 @@ import { useEasyLightbox } from "vue-easy-lightbox"
 const list: { name: string; url: string; width?: number; height?: number }[] = [
   {
     name: "平面图",
-    url: getAssets("主方案_2025-10-02T06_42_20.7966195Z.jpg"),
+    url: getAssets("平面图/平面图_1_平面图.png"),
   },
   {
-    name: "顶面示意图",
-    url: getAssets("主方案_2025-10-02T06_51_22.0568531Z.jpg"),
+    name: "墙体拆改指示图",
+    url: getAssets("平面图/平面图_2_墙体拆改指示图.png"),
+  },
+  {
+    name: "吊顶示意图",
+    url: getAssets("平面图/平面图_3_吊顶示意图.png"),
+  },
+  {
+    name: "开关插座布置图",
+    url: getAssets("平面图/平面图_4_开关插座布置图.png"),
+  },
+  {
+    name: "灯控图",
+    url: getAssets("平面图/平面图_5_灯控图.png"),
+  },
+  {
+    name: "水电立面图1",
+    url: getAssets("平面图/平面图_6_水电立面图1.png"),
+  },
+  {
+    name: "水电立面图2",
+    url: getAssets("平面图/平面图_7_水电立面图2.png"),
+  },
+  {
+    name: "水电立面图3",
+    url: getAssets("平面图/平面图_8_水电立面图3.png"),
   },
 ]
 
