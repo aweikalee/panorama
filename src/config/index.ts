@@ -29,7 +29,7 @@ export const sceneOptions: PannellumGroup[] = [
         sceneId: "客厅",
         $x: 5.1,
         $z: -3.1523,
-        panorama: getAssets("白天/客厅.jpg"),
+        panorama: getAssets("夜晚/客厅.jpg"),
       },
       {
         sceneId: "厨房",
