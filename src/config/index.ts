@@ -74,6 +74,12 @@ export const sceneOptions: PannellumGroup[] = [
         panorama: getAssets("夜晚/书房.jpg"),
       },
       {
+        sceneId: "过道",
+        $x: 7.6004,
+        $z: -8.5000,
+        panorama: getAssets("夜晚/过道.jpg"),
+      },
+      {
         sceneId: "储物间",
         $x: 7.7912,
         $z: -6.9239,
