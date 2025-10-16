@@ -44,6 +44,10 @@ const list: { name: string; url: string; width?: number; height?: number }[] = [
     name: "水电立面图3",
     url: getAssets("平面图/平面图_10_水电立面图3.png"),
   },
+  {
+    name: "房门特殊要求",
+    url: getAssets("平面图/平面图_11_房门特殊要求.png"),
+  },
 ]
 </script>
 
