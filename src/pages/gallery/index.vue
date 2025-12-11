@@ -9,44 +9,48 @@ const list: { name: string; url: string; width?: number; height?: number }[] = [
     url: getAssets("平面图/平面图_01_平面图.png"),
   },
   {
-    name: "墙体拆改指示图",
-    url: getAssets("平面图/平面图_02_墙体拆改指示图.png"),
+    name: "原始建筑平面图",
+    url: getAssets("平面图/平面图_02_原始建筑平面图.png"),
+  },
+  {
+    name: "砌墙完成面尺寸图",
+    url: getAssets("平面图/平面图_03_砌墙完成面尺寸图.png"),
   },
   {
     name: "吊顶示意图",
-    url: getAssets("平面图/平面图_03_吊顶示意图.png"),
+    url: getAssets("平面图/平面图_04_吊顶示意图.png"),
   },
   {
     name: "开关插座布置图",
-    url: getAssets("平面图/平面图_04_开关插座布置图.png"),
+    url: getAssets("平面图/平面图_05_开关插座布置图.png"),
   },
   {
     name: "灯控图",
-    url: getAssets("平面图/平面图_05_灯控图.png"),
+    url: getAssets("平面图/平面图_06_灯控图.png"),
   },
   {
     name: "给水平面图",
-    url: getAssets("平面图/平面图_06_给水平面图.png"),
+    url: getAssets("平面图/平面图_07_给水平面图.png"),
   },
   {
     name: "新风平面图",
-    url: getAssets("平面图/平面图_07_新风平面图.png"),
+    url: getAssets("平面图/平面图_08_新风平面图.png"),
   },
   {
     name: "水电立面图1",
-    url: getAssets("平面图/平面图_08_水电立面图1.png"),
+    url: getAssets("平面图/平面图_09_水电立面图1.png"),
   },
   {
     name: "水电立面图2",
-    url: getAssets("平面图/平面图_09_水电立面图2.png"),
+    url: getAssets("平面图/平面图_10_水电立面图2.png"),
   },
   {
     name: "水电立面图3",
-    url: getAssets("平面图/平面图_10_水电立面图3.png"),
+    url: getAssets("平面图/平面图_11_水电立面图3.png"),
   },
   {
     name: "房门特殊要求",
-    url: getAssets("平面图/平面图_11_房门特殊要求.png"),
+    url: getAssets("平面图/平面图_12_房门特殊要求.png"),
   },
 ]
 </script>
