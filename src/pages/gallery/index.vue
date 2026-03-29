@@ -52,6 +52,34 @@ const list: { name: string; url: string; width?: number; height?: number }[] = [
     name: "房门特殊要求",
     url: getAssets("平面图/平面图_12_房门特殊要求.png"),
   },
+  {
+    name: "地面铺装图",
+    url: getAssets("平面图/平面图_13_地面铺装图.png"),
+  },
+  {
+    name: "柜体-主卧衣柜",
+    url: getAssets("平面图_14_柜体-主卧衣柜.png"),
+  },
+  {
+    name: "柜体-客厅",
+    url: getAssets("平面图_15_柜体-客厅.png"),
+  },
+  {
+    name: "柜体-书房阳台",
+    url: getAssets("平面图_16_柜体-书房阳台.png"),
+  },
+  {
+    name: "柜体-橱柜总览",
+    url: getAssets("平面图_17_柜体-橱柜总览.png"),
+  },
+  {
+    name: "柜体-橱柜详情",
+    url: getAssets("平面图_18_柜体-橱柜详情.png"),
+  },
+  {
+    name: "柜体-浴室柜",
+    url: getAssets("平面图_19_柜体-浴室柜.png"),
+  },
 ]
 </script>
 
