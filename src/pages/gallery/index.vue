@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Navbar from "@/components/Navbar.vue"
 import Fixed from "@/components/Fixed.vue"
-import { getAssets } from "@/utils/oss"
+import { getAssets, getThumbnail } from "@/utils/oss"
 
 const list: { name: string; url: string; width?: number; height?: number }[] = [
   {
@@ -85,11 +85,16 @@ const list: { name: string; url: string; width?: number; height?: number }[] = [
 
 <template>
   <div class="gallery">
-    <photo-provider v-for="item in list" :key="item.name">
-      <photo-consumer class="gallery__item" :src="item.url" :intro="item.name">
-        {{ item.name }}
-      </photo-consumer>
-    </photo-provider>
+    <div class="gallery__grid">
+      <photo-provider v-for="item in list" :key="item.name">
+        <photo-consumer class="gallery__item" :src="item.url" :intro="item.name">
+          <div class="gallery__image-wrapper">
+            <img class="gallery__thumbnail" :src="getThumbnail(item.url)" :alt="item.name" />
+          </div>
+          <div class="gallery__name">{{ item.name }}</div>
+        </photo-consumer>
+      </photo-provider>
+    </div>
   </div>
 
   <Fixed position="bottom">
@@ -99,18 +104,64 @@ const list: { name: string; url: string; width?: number; height?: number }[] = [
 
 <style scoped lang="scss">
 .gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   padding: 20px;
 
-  .gallery__item {
-    background-color: #fff;
-    border-radius: 4px;
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    background-color: #08090A;
+    border-radius: 8px;
     overflow: hidden;
-    color: black;
+    color: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    &:active {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    overflow: hidden;
+  }
+
+  &__thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+
+    .gallery__item:hover & {
+      transform: scale(1.05);
+    }
+  }
+
+  &__name {
+    padding: 12px 8px;
+    font-size: 14px;
     text-align: center;
-    padding: 10px 20px;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 </style>
