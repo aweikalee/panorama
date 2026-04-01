@@ -17,7 +17,7 @@ type PannellumGroup = {
 export const sceneOptions: PannellumGroup[] = [
   {
     name: "main",
-    title: "全景图(夜晚)",
+    title: "夜晚",
     scenes: [
       {
         sceneId: "餐厅",
@@ -95,7 +95,7 @@ export const sceneOptions: PannellumGroup[] = [
   },
   {
     name: "daytime",
-    title: "全景图(白天)",
+    title: "白天",
     scenes: [
       {
         sceneId: "餐厅",
@@ -156,6 +156,72 @@ export const sceneOptions: PannellumGroup[] = [
         $x: 2.579,
         $z: -11.4363,
         panorama: getAssets("白天/设备平台.jpg"),
+      },
+    ],
+  },
+  {
+    name: "electricity",
+    title: "水电",
+    scenes: [
+      {
+        sceneId: "餐厅",
+        $x: 5.1,
+        $z: -6.3831,
+        panorama: getAssets("水电/餐厅.jpg"),
+      },
+      {
+        sceneId: "客厅",
+        $x: 5.1,
+        $z: -3.1523,
+        panorama: getAssets("水电/客厅.jpg"),
+      },
+      {
+        sceneId: "厨房",
+        $x: 5.1,
+        $z: -10.3351,
+        panorama: getAssets("水电/厨房.jpg"),
+      },
+      {
+        sceneId: "干区",
+        $x: 7.1674,
+        $z: -4.8377,
+        panorama: getAssets("水电/干区.jpg"),
+      },
+      {
+        sceneId: "主卫",
+        $x: 9.0312,
+        $z: -4.8377,
+        panorama: getAssets("水电/主卫.jpg"),
+      },
+      {
+        sceneId: "次卫",
+        $x: 8.8213,
+        $z: -7.723,
+        panorama: getAssets("水电/次卫.jpg"),
+      },
+      {
+        sceneId: "主卧",
+        $x: 9.0,
+        $z: -2.3296,
+        panorama: getAssets("水电/主卧.jpg"),
+      },
+      {
+        sceneId: "次卧",
+        $x: 1.5693,
+        $z: -2.3296,
+        panorama: getAssets("水电/次卧.jpg"),
+      },
+      {
+        sceneId: "书房",
+        $x: 8.261,
+        $z: -10.3351,
+        panorama: getAssets("水电/书房.jpg"),
+      },
+      {
+        sceneId: "设备平台",
+        $x: 2.579,
+        $z: -11.4363,
+        panorama: getAssets("水电/设备平台.jpg"),
       },
     ],
   },
