@@ -1,0 +1,13 @@
+diff --git a/node_modules/vue3-photo-preview/dist/vue3-photo-preview.esm.js b/node_modules/vue3-photo-preview/dist/vue3-photo-preview.esm.js
+index e6d9c27..e629dbc 100644
+--- a/node_modules/vue3-photo-preview/dist/vue3-photo-preview.esm.js
++++ b/node_modules/vue3-photo-preview/dist/vue3-photo-preview.esm.js
+@@ -792,7 +792,7 @@ var minSwitchImageOffset = 40;
+ /**
+  * 最大缩放度（若图片足够大，则会超出该值）
+  */
+-var maxScale = 6;
++var maxScale = 15;
+ 
+ function withContinuousTap(singleTap, doubleTap) {
+     // 当前连续点击次数
