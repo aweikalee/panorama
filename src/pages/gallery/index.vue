@@ -80,6 +80,10 @@ const list: { name: string; url: string; width?: number; height?: number }[] = [
     name: "柜体-浴室柜",
     url: getAssets("平面图/平面图_19_柜体-浴室柜.png"),
   },
+  {
+    name: "柜体-电梯间",
+    url: getAssets("平面图/平面图_20_柜体-电梯间.png"),
+  },
 ]
 </script>
 
