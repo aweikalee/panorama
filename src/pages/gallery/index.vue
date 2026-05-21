@@ -61,6 +61,10 @@ const list: { name: string; url: string; width?: number; height?: number }[] = [
     url: getAssets("平面图/平面图_14_柜体-主卧衣柜.png"),
   },
   {
+    name: "柜体-次卧衣柜",
+    url: getAssets("平面图/平面图_22_柜体-次卧衣柜.png"),
+  },
+  {
     name: "柜体-客厅",
     url: getAssets("平面图/平面图_15_柜体-客厅.png"),
   },
@@ -83,6 +87,10 @@ const list: { name: string; url: string; width?: number; height?: number }[] = [
   {
     name: "柜体-电梯间",
     url: getAssets("平面图/平面图_20_柜体-电梯间.png"),
+  },
+  {
+    name: "柜体-储物间",
+    url: getAssets("平面图/平面图_21_柜体-储物间.png"),
   },
 ]
 </script>
