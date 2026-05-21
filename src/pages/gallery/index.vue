@@ -57,6 +57,10 @@ const list: { name: string; url: string; width?: number; height?: number }[] = [
     url: getAssets("平面图/平面图_13_地面铺装图.png"),
   },
   {
+    name: "瓷砖立面示意图",
+    url: getAssets("平面图/平面图_23_瓷砖立面示意图.png"),
+  },
+  {
     name: "柜体-主卧衣柜",
     url: getAssets("平面图/平面图_14_柜体-主卧衣柜.png"),
   },
